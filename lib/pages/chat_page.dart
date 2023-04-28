@@ -120,7 +120,14 @@ class _ChatPageState extends State<ChatPage> {
             ),
           );
         } else {
-          return const Text("Loading...");
+          return Scaffold(
+            body: Center(
+              child: Text(
+                'Loading...',
+                style: GoogleFonts.cairo(fontSize: 30),
+              ),
+            ),
+          );
         }
       },
     );
