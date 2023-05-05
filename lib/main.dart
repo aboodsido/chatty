@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
       },
       initialRoute: LoginPage.id,
       debugShowCheckedModeBanner: false,
-      // home: LoginPage(),
     );
   }
 }
