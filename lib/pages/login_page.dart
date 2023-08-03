@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/cubit/login_cubit.dart';
@@ -26,19 +25,23 @@ class LoginPage extends StatelessWidget {
 
   bool isLoading = false;
 
+  LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
+    return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoading) {
           isLoading = true;
         } else if (state is LoginSuccess) {
           Navigator.pushNamed(context, ChatPage.id, arguments: email);
+          isLoading = false;
         } else if (state is LoginFailure) {
           showSnackBar(context, state.errorMessage!, Colors.red);
+          isLoading = false;
         }
       },
-      child: ModalProgressHUD(
+      builder: (context, state) => ModalProgressHUD(
         inAsyncCall: isLoading,
         child: Scaffold(
           backgroundColor: kPrimaryColor,
@@ -60,7 +63,7 @@ class LoginPage extends StatelessWidget {
                       style: titleFontStyle,
                     ),
                     const SizedBox(height: 50),
-                    Container(
+                    SizedBox(
                       width: double.maxFinite,
                       child: Text(
                         'Sign In',
