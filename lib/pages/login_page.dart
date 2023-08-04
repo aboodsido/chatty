@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/cubit/login_cubit.dart';
 import 'package:flutter_chat/pages/register_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../constants.dart';
+import '../cubits/chat_cubit/chat_cubit.dart';
+import '../cubits/login_cubit/login_cubit.dart';
 import '../helper/show_snackBar.dart';
 import '../widgets/custom_textField.dart';
 import 'chat_page.dart';
@@ -34,6 +35,7 @@ class LoginPage extends StatelessWidget {
         if (state is LoginLoading) {
           isLoading = true;
         } else if (state is LoginSuccess) {
+          BlocProvider.of<ChatCubit>(context).getMessage();
           Navigator.pushNamed(context, ChatPage.id, arguments: email);
           isLoading = false;
         } else if (state is LoginFailure) {
