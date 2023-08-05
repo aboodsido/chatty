@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/cubits/register_cubit/register_cubit.dart';
+import 'package:flutter_chat/bloc/auth_bloc.dart';
 import 'package:flutter_chat/pages/chat_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -31,7 +31,7 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterCubit, RegisterState>(
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is RegisterLoading) {
           isLoading = true;
@@ -102,9 +102,9 @@ class RegisterPage extends StatelessWidget {
                               backgroundColor: Colors.cyan, elevation: 4),
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
-                              BlocProvider.of<RegisterCubit>(context)
-                                  .registerUser(
-                                      email: email!, password: password!);
+                              BlocProvider.of<AuthBloc>(context).add(
+                                  RegisterEvent(
+                                      email: email!, password: password!));
                             }
                           },
                           child: Text(

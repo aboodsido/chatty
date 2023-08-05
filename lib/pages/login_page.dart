@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chat/bloc/auth_bloc.dart';
 import 'package:flutter_chat/pages/register_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../constants.dart';
 import '../cubits/chat_cubit/chat_cubit.dart';
-import '../cubits/login_cubit/login_cubit.dart';
 import '../helper/show_snackBar.dart';
 import '../widgets/custom_textField.dart';
 import 'chat_page.dart';
@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is LoginLoading) {
           isLoading = true;
@@ -100,8 +100,8 @@ class LoginPage extends StatelessWidget {
                             backgroundColor: Colors.cyan, elevation: 4),
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
-                            BlocProvider.of<LoginCubit>(context)
-                                .loginUser(email: email!, password: password!);
+                            BlocProvider.of<AuthBloc>(context).add(
+                                LoginEvent(email: email!, password: password!));
                           } else {}
                         },
                         child: Text(

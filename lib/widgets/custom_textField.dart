@@ -3,7 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextFromField extends StatelessWidget {
   CustomTextFromField(
-      {required this.onChanged,
+      {super.key,
+      required this.onChanged,
       required this.hintText,
       required this.obscuring,
       required this.hintTextColor});
@@ -20,6 +21,7 @@ class CustomTextFromField extends StatelessWidget {
         if (data!.isEmpty) {
           return 'Require Field';
         }
+        return null;
       },
       onChanged: onChanged,
       obscureText: obscuring,
@@ -27,7 +29,7 @@ class CustomTextFromField extends StatelessWidget {
       decoration: InputDecoration(
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Color(0xffCBC9C9FF),
+            color: Color(0xffcbc9c9ff),
           ),
         ),
         focusedBorder: const OutlineInputBorder(
